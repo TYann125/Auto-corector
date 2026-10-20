@@ -1,0 +1,14 @@
+{
+    "layout": "azerty",
+    "default_language": "fr",
+    "key_delay_ms": 5.0,
+    "enable_languagetool": false,
+    "languagetool_endpoint": "http://127.0.0.1:8081/v2/check",
+    "virtual_device_name": "AutoCorrect Virtual Keyboard",
+    "log_level": "INFO",
+    "custom_corrections": {
+        "cdl": "Cordialement,",
+        "bjr": "Bonjour,",
+        "asap": "dès que possible"
+    }
+}

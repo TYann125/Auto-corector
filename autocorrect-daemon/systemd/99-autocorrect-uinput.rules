@@ -1,0 +1,5 @@
+# Règle udev pour autoriser l'accès sans mot de passe à /dev/uinput et /dev/input
+# pour les membres du groupe 'input' et l'utilisateur actif de la session (uaccess)
+
+KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput", MODE="0660", GROUP="input"
+KERNEL=="event*", SUBSYSTEM=="input", GROUP="input", MODE="0660"

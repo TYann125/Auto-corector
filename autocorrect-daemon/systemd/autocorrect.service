@@ -1,0 +1,21 @@
+[Unit]
+Description=AutoCorrect Daemon - Correcteur bilingue de frappe en temps réel (Wayland/X11)
+After=multi-user.target
+Documentation=https://github.com/example/autocorrect-daemon
+
+[Service]
+Type=simple
+User=%I
+# Exécute le script avec l'interpréteur python du venv ou du système
+ExecStart=/usr/bin/python3 /opt/autocorrect-daemon/run_daemon.py --config /opt/autocorrect-daemon/config.json
+Restart=always
+RestartSec=3
+
+# Mesures de sécurité de base
+ProtectSystem=full
+ProtectHome=read-only
+DeviceAllow=/dev/uinput rw
+DeviceAllow=/dev/input/event* r
+
+[Install]
+WantedBy=multi-user.target
