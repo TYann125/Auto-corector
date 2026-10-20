@@ -102,6 +102,14 @@ COMMON_FR_TYPOS = {
     "ca": "ça",
 }
 
+# Élisions françaises écrites sans apostrophe.
+COMMON_FR_ELISIONS = {
+    "quil": "qu'il",
+    "cest": "c'est",
+    "jai": "j'ai",
+    "daccord": "d'accord",
+}
+
 
 class BilingualSymSpellEngine:
     """Moteur de correction orthographique bilingue FR/EN motorisé par SymSpell."""
@@ -288,6 +296,9 @@ class BilingualSymSpellEngine:
             fix = COMMON_FR_TYPOS[clean_lower]
             if fix.lower() != clean_lower:
                 return self.apply_casing(word, fix)
+
+        if context_lang == "fr" and clean_lower in COMMON_FR_ELISIONS:
+            return self.apply_casing(word, COMMON_FR_ELISIONS[clean_lower])
 
         # 3. Vérification de validité (Code-switching : mot déjà correct en FR ou en EN)
         if clean_lower in self.sym_fr.words:

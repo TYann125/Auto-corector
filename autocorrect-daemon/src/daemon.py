@@ -168,7 +168,13 @@ class AutoCorrectDaemon:
                 on_language=self.change_language,
                 on_quit=self._handle_tray_quit,
             )
-            self._tray.start()
+            if not self._tray.start():
+                self.logger.warning(
+                    "Icône de barre indisponible : installez pystray/Pillow "
+                    "ou le paquet Fedora libappindicator-gtk3."
+                )
+            else:
+                self.logger.info("Icône de barre activée (%s)", self._tray._backend)
         except (ImportError, RuntimeError) as exc:
             self.logger.warning("Icône tray indisponible : %s", exc)
 

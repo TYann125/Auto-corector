@@ -15,14 +15,17 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 REAL_USER="${SUDO_USER:-$USER}"
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "[*] Installation des paquets recommandés..."
 if command -v dnf &>/dev/null; then
     echo "    -> Détection de Fedora (dnf)..."
-    dnf install -y hunspell-fr libevdev python3 python3-evdev || true
+    dnf install -y hunspell-fr libevdev python3 python3-evdev \
+        python3-gobject libappindicator-gtk3 || true
 elif command -v apt-get &>/dev/null; then
     echo "    -> Détection de Debian/Ubuntu (apt)..."
-    apt-get update && apt-get install -y hunspell-fr libevdev2 python3 python3-evdev || true
+    apt-get update && apt-get install -y hunspell-fr libevdev2 python3 python3-evdev \
+        python3-gi gir1.2-appindicator3-0.1 || true
 elif command -v pacman &>/dev/null; then
     echo "    -> Détection d'Arch Linux (pacman)..."
     pacman -Sy --noconfirm hunspell-fr libevdev python python-evdev || true

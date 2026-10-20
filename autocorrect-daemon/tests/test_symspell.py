@@ -82,6 +82,15 @@ class TestBilingualSymSpellEngine(unittest.TestCase):
         self.assertEqual(self.engine.correct("ACCEUIL", context_lang="fr"), "ACCUEIL")
         self.assertEqual(self.engine.correct("DEVELOPPMENT", context_lang="fr"), "DÉVELOPPEMENT")
 
+    def test_french_elisions(self):
+        """Les élisions saisies sans apostrophe sont restaurées."""
+        self.assertEqual(self.engine.correct("quil", context_lang="fr"), "qu'il")
+        self.assertEqual(self.engine.correct("Quil", context_lang="fr"), "Qu'il")
+        self.assertEqual(self.engine.correct("QUIL", context_lang="fr"), "QU'IL")
+        self.assertEqual(self.engine.correct("cest", context_lang="fr"), "c'est")
+        self.assertEqual(self.engine.correct("jai", context_lang="fr"), "j'ai")
+        self.assertEqual(self.engine.correct("daccord", context_lang="fr"), "d'accord")
+
     def test_strict_filtering(self):
         """
         Ignorer impérativement :
